@@ -1,0 +1,58 @@
+<section class="m-5">
+    <h4 class="m-5 mb-0">We appreciate your feedback!</h4>
+<form (ngSubmit)="onSubmit(feedbackForm)" #feedbackForm="ngForm" class="border border-1 rounded-2 p-2 w-50 m-5 mt-1">
+<!-- First Name  -->
+    <mat-form-field appearance="legacy" class="w-100">
+        <input matInput type="text" name="firstName" [(ngModel)]="feedback.firstName" placeholder="First Name" required minlength="2" #firstName="ngModel">
+        <mat-error *ngIf="firstName.errors?.['required']">first name is required</mat-error>
+        <mat-error *ngIf="firstName.errors?.['minlength']">
+            first name minimum length is {{firstName.errors?.['minlength']?.requiredLength}}
+        </mat-error>
+    </mat-form-field>
+<!-- Last Name  -->
+    <mat-form-field appearnace="legacy" class="w-100">
+        <input type="text" matInput name="lastName" [(ngModel)]="feedback.lastName" #lastName="ngModel" minlength="3" placeholder="Last Name" required>
+        <mat-error *ngIf="lastName.errors?.['required']">last name is required</mat-error>
+        <mat-error *ngIf="lastName.errors?.['minlength']">
+            last name minimum length is {{lastName.errors?.['minlength']?.requiredLength}}
+        </mat-error>
+    </mat-form-field>
+<!-- Phone  -->
+    <mat-form-field appearance="legacy" class="w-100">
+        <input type="text" matInput name="phone" [(ngModel)]="feedback.phone" placeholder="Phone Number" required minlength="10" #phone="ngModel">
+        <mat-error *ngIf="phone.errors?.['required']">Phone number is required</mat-error>
+        <mat-error *ngIf="phone.errors?.['minlength']">enter valid phone number containing 10 digits starting with 7/8/9</mat-error>
+    </mat-form-field>
+<!-- Email  -->
+    <mat-form-field appearance="legacy" class="w-100">
+        <input type="email" matInput name="email" [(ngModel)]="feedback.email" placeholder="Email" required #email="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        <mat-error *ngIf="email.errors?.['required']"> Email id is required</mat-error>
+        <mat-error *ngIf="email.errors?.['pattern']">Enter valid email id</mat-error>
+    </mat-form-field>
+<!-- Location  -->
+    <mat-form-field appearance="legacy" class="w-100">
+        <mat-label>Location you visited</mat-label>
+        <mat-select id="location" name="location" [(ngModel)]="feedback.location">
+            <mat-option *ngFor="let locs of location" [value]="locs">{{locs}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+<!-- Ratings  -->
+    <mat-radio-group name="rating" #rating="ngModel" [(ngModel)]="feedback.rating">
+        <mat-label class="me-2 fw-semibold">Overall Dining Experience</mat-label>
+        <mat-radio-button value="5" class="px-2">Excellent</mat-radio-button>
+        <mat-radio-button value="4" class="px-2">Good</mat-radio-button>
+        <mat-radio-button value="3" class="px-2">Average</mat-radio-button>
+        <mat-radio-button value="2" class="px-2">Disqualified</mat-radio-button>
+    </mat-radio-group>
+    <br>
+<!-- Comments  -->
+    <mat-form-field class="w-100">
+        <textarea class="mt-3" name="comments" cols="45" rows="4" placeholder="Any comments / suggestions" type="text" matInput #comment="ngModel" [(ngModel)]="feedback.comments"></textarea>
+    </mat-form-field>
+    <br>
+    <div class="text-center">
+    <button mat-button mat-raised-button color="primary" class="mt-2 me-3" type="submit" [disabled]="feedbackForm.invalid">Submit</button>
+    <button mat-button mat-raised-button color="accent" class="mt-2 ms-2" type="reset">Reset</button>
+    </div>
+</form>
+</section>
